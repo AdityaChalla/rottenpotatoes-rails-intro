@@ -12,9 +12,11 @@ class MoviesController < ApplicationController
 
   def index
     #@movies = Movie.all
-    if params[:sort] == 'title'
+    if params[:ratings]
+      rates = params[:ratings].keys
+      @movies = Movie.where(:rating => rates)
+    elsif params[:sort] == 'title'
       @movies = Movie.order(:title)
-      #"<link rel='stylesheet' href='app/assets/stylesheets/default.css'>"
     elsif params[:sort] == 'release_date'
       @movies = Movie.order(:release_date)
     else
